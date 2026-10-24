@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VANTA — Streetwear Showroom</title>
+  <meta name="description" content="VANTA — interactive streetwear showroom. Drag the rail, pick a piece, flip it front and back.">
+  <meta name="theme-color" content="#0b0c0f">
+  <meta property="og:title" content="VANTA — Streetwear Showroom">
+  <meta property="og:description" content="Drag the rail. Pick a piece. Flip it. Drop 04 is live.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind (CDN) — cukup untuk mulai & deploy. Lihat README kalau mau versi build. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { neon: '#c8ff00', ink: '#0b0c0f' },
+          fontFamily: {
+            display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
+            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-ink font-sans text-[#f2f2ee] antialiased">
+
+  <!-- Latar -->
+  <div class="stage-bg" aria-hidden="true"></div>
+  <div class="floor" aria-hidden="true"></div>
+  <div class="dim" id="dim" aria-hidden="true"></div>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Navigasi atas (logo di tengah) -->
+  <header class="fixed inset-x-0 top-0 z-30 grid h-[68px] grid-cols-3 items-center px-4 sm:px-8 pointer-events-none">
+    <div class="flex items-center gap-5 pointer-events-auto">
+      <button id="btn-sound" class="sound-btn" type="button" aria-pressed="true" aria-label="Toggle sound">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="hidden sm:inline">SOUND</span>
+      </button>
+      <nav class="hidden md:flex items-center gap-6 text-[11px] font-semibold tracking-[.22em]" aria-label="Main">
+        <a href="#" data-soon class="nav-link">SHOP</a>
+        <a href="#" data-soon class="nav-link">ARCHIVE</a>
+        <a href="#" data-soon class="nav-link">INFO</a>
+      </nav>
+    </div>
+
+    <h1 class="justify-self-center pointer-events-auto">
+      <a href="./" class="logo font-display text-[30px] sm:text-[38px] leading-none tracking-[.3em]" aria-label="VANTA home">VANTA<span class="text-neon">®</span></a>
+    </h1>
+
+    <div class="justify-self-end pointer-events-auto">
+      <button id="btn-cart" class="cart-btn" type="button" aria-label="Open cart">
+        <span>CART</span><span id="cart-count" class="count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Rak baju (area drag / swipe) -->
+  <main id="viewport" class="viewport" aria-label="Clothing rack. Drag or scroll horizontally to browse.">
+    <div id="track" class="track"></div>
+  </main>
+
+  <button id="nav-prev" class="nav-arrow left" type="button" aria-label="Previous piece">←</button>
+  <button id="nav-next" class="nav-arrow right" type="button" aria-label="Next piece">→</button>
+
+  <p id="hint" class="hint">
+    <span class="hint-line"></span>
+    <span>DRAG · SWIPE · SCROLL</span>
+    <span class="hint-dot">/</span>
+    <span>TAP A PIECE TO INSPECT</span>
+    <span class="hint-line"></span>
+  </p>
+
+  <!-- Panel detail produk -->
+  <aside id="panel" class="panel" aria-live="polite" aria-label="Product details"></aside>
+
+  <!-- Teks berjalan -->
+  <footer class="marquee" aria-label="Announcements">
+    <div id="marquee" class="marquee-track"></div>
+  </footer>
+
+  <!-- Keranjang -->
+  <div id="cart-backdrop" class="cart-backdrop"></div>
+  <aside id="cart" class="cart" aria-label="Shopping cart" inert>
+    <div class="cart-head">
+      <h2 class="font-display tracking-[.2em]">YOUR CART</h2>
+      <button id="cart-close" type="button" class="cart-x" aria-label="Close cart">✕</button>
+    </div>
+    <div id="cart-list" class="cart-list"></div>
+    <div class="cart-foot">
+      <div class="cart-sum"><span>SUBTOTAL</span><strong id="cart-total">Rp 0</strong></div>
+      <p>Free worldwide shipping. Taxes calculated at checkout.</p>
+      <button id="btn-checkout" type="button" class="btn btn-neon">CHECKOUT</button>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p style="position:fixed;inset:0;display:grid;place-items:center;background:#0b0c0f;color:#fff;z-index:99;text-align:center;padding:2rem">
+      VANTA needs JavaScript to run the showroom.
+    </p>
+  </noscript>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
